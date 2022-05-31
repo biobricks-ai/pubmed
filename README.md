@@ -1,3 +1,5 @@
+<a href="https://github.com/biobricks-ai/pubmed/actions"><img src="https://github.com/biobricks-ai/pubmed/actions/workflows/bricktools-check.yaml/badge.svg?branch=main"/></a>
+
 # Pubmed
 
 ## DESCRIPTION
