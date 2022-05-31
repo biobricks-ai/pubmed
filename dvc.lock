@@ -1,0 +1,34 @@
+schema: '2.0'
+stages:
+  download_dtd:
+    cmd: wget -P ./download/pubmed http://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd
+    outs:
+    - path: ./download/pubmed/pubmed_190101.dtd
+      md5: d16dd6b78501dea6f2082d92e8f0f0f7
+      size: 14576
+  download_pubmed:
+    cmd: wget -r -m -P ./download ftp://ftp.ncbi.nlm.nih.gov/pubmed
+    deps:
+    - path: ./download/pubmed/pubmed_190101.dtd
+      md5: d16dd6b78501dea6f2082d92e8f0f0f7
+      size: 14576
+    outs:
+    - path: download/ftp.ncbi.nlm.nih.gov
+      md5: 19c00c9bf84b521306a1b1df621ea58e.dir
+      size: 46936943263
+      nfiles: 2883
+  process_pubmed_json:
+    cmd: Rscript R/process.R
+    deps:
+    - path: R/process.R
+      md5: 7b5bd71e0c3c6679f3b6b033b725eda9
+      size: 2529
+    - path: download/ftp.ncbi.nlm.nih.gov
+      md5: 19c00c9bf84b521306a1b1df621ea58e.dir
+      size: 46936943263
+      nfiles: 2883
+    outs:
+    - path: data/pubmed.parquet
+      md5: b5f77e39839334faeb1fa0295fa03f42.dir
+      size: 52013462966
+      nfiles: 1114

@@ -7,7 +7,7 @@ first  <- fs::file_info(outf) |> dplyr::pull(modification_time) |> min() |> lubr
 
 total_secs  <- lubridate::interval(first,lubridate::now()) |> lubridate::as.difftime() |> lubridate::time_length() 
 min_per_doc <- (total_secs/done) / 60
-est_hour    <- numf * min_per_doc / 60
+est_hour    <- (numf-done) * min_per_doc / 60
 
 failures <- fs::dir_ls("log") |> length()
 

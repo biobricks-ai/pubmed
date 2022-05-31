@@ -45,6 +45,7 @@ process_file <- function(file,out,el){
 gzfile  <- fs::dir_ls("download/ftp.ncbi.nlm.nih.gov/pubmed/baseline",regexp=".gz$")
 outdir  <- fs::dir_create("data/pubmed.parquet/") |> fs::path_abs()
 outfile <- fs::path(outdir,fs::path_file(gzfile)) |> gsub(pat="xml.gz$",repl="parquet") 
+io      <- list(i=gzfile,o=outfile) |> transpose() |> discard(~file.exists(.$o)) |> transpose()
 
 # PROCESS WITH LOGGING
 step <- \(i,o,el){
@@ -54,4 +55,4 @@ step <- \(i,o,el){
 }
 
 plan(multisession(workers = 15))
-furrr::future_walk2(gzfile, outfile, step, el=el)
+furrr::future_walk2(io$i, io$o, step, el=el)
