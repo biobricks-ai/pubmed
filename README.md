@@ -8,7 +8,7 @@
 
 ## Usage
 ```{R}
-biobricks::install_brick("pubmed")
+biobricks::brick_install("pubmed")
 biobricks::brick_pull("pubmed")
 biobricks::brick_load("pubmed")
 ```
