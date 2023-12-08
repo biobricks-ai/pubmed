@@ -17,6 +17,6 @@ stages:
       - R/process.R
       - download/ftp.ncbi.nlm.nih.gov
     outs:
-      - data/pubmed.parquet:
+      - brick/pubmed.parquet:
           persist: true
           cache: true

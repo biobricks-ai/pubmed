@@ -43,7 +43,7 @@ process_file <- function(file,out,el){
 
 # OUTS =================================================================================
 gzfile  <- fs::dir_ls("download/ftp.ncbi.nlm.nih.gov/pubmed/baseline",regexp=".gz$")
-outdir  <- fs::dir_create("data/pubmed.parquet/") |> fs::path_abs()
+outdir  <- fs::dir_create("brick/pubmed.parquet/") |> fs::path_abs()
 outfile <- fs::path(outdir,fs::path_file(gzfile)) |> gsub(pat="xml.gz$",repl="parquet") 
 io      <- list(i=gzfile,o=outfile) |> transpose() |> discard(~file.exists(.$o)) |> transpose()
 

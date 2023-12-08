@@ -4,19 +4,22 @@ stages:
     cmd: wget -P ./download/pubmed http://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd
     outs:
     - path: ./download/pubmed/pubmed_190101.dtd
-      md5: d16dd6b78501dea6f2082d92e8f0f0f7
+      hash: md5
+      md5: 2eba5b48c24b0417620a139371a00550
       size: 14576
   download_pubmed:
     cmd: wget -r -m -P ./download ftp://ftp.ncbi.nlm.nih.gov/pubmed
     deps:
     - path: ./download/pubmed/pubmed_190101.dtd
-      md5: d16dd6b78501dea6f2082d92e8f0f0f7
+      hash: md5
+      md5: 2eba5b48c24b0417620a139371a00550
       size: 14576
     outs:
     - path: download/ftp.ncbi.nlm.nih.gov
-      md5: 19c00c9bf84b521306a1b1df621ea58e.dir
-      size: 46936943263
-      nfiles: 2883
+      hash: md5
+      md5: 1e1836bf20bf3a33e1d9335222d7a09e.dir
+      size: 59542021395
+      nfiles: 3583
   process_pubmed_json:
     cmd: Rscript R/process.R
     deps:
