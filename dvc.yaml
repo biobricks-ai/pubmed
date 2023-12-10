@@ -9,14 +9,11 @@ stages:
       - ./download/pubmed/pubmed_190101.dtd
     outs:
       - download/ftp.ncbi.nlm.nih.gov:
-          persist: true
-          cache: true
+          cache: false
   process_pubmed_json:
-    cmd: Rscript R/process.R
+    cmd: python3 stages/process.py
     deps:
-      - R/process.R
+      - stages/process.py
       - download/ftp.ncbi.nlm.nih.gov
     outs:
-      - brick/pubmed.parquet:
-          persist: true
-          cache: true
+      - brick/pubmed.parquet

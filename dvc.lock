@@ -17,21 +17,24 @@ stages:
     outs:
     - path: download/ftp.ncbi.nlm.nih.gov
       hash: md5
-      md5: 1e1836bf20bf3a33e1d9335222d7a09e.dir
-      size: 59542021395
-      nfiles: 3583
+      md5: 9f32a29702c0d1bf13441a8b386e0e5b.dir
+      size: 59581893549
+      nfiles: 3584
   process_pubmed_json:
-    cmd: Rscript R/process.R
+    cmd: python3 stages/process.py
     deps:
-    - path: R/process.R
-      md5: 7b5bd71e0c3c6679f3b6b033b725eda9
-      size: 2529
     - path: download/ftp.ncbi.nlm.nih.gov
-      md5: 19c00c9bf84b521306a1b1df621ea58e.dir
-      size: 46936943263
-      nfiles: 2883
+      hash: md5
+      md5: 9f32a29702c0d1bf13441a8b386e0e5b.dir
+      size: 59581893549
+      nfiles: 3584
+    - path: stages/process.py
+      hash: md5
+      md5: f0a7bacac2e606810486dbfd45431302
+      size: 1213
     outs:
-    - path: data/pubmed.parquet
-      md5: b5f77e39839334faeb1fa0295fa03f42.dir
-      size: 52013462966
-      nfiles: 1114
+    - path: brick/pubmed.parquet
+      hash: md5
+      md5: cadf3f2279522fd7296a3ad37519b8f3.dir
+      size: 66259075095
+      nfiles: 1166
