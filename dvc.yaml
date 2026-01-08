@@ -1,19 +1,7 @@
 stages:
-  download_dtd:
-    cmd: wget -P ./download/pubmed http://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd
-    outs:
-      - ./download/pubmed/pubmed_190101.dtd
-  download_pubmed:
-    cmd: wget -r -m -P ./download ftp://ftp.ncbi.nlm.nih.gov/pubmed
+  build_brick:
+    cmd: python3 stages_v2/download_and_process_baseline.py --workers 4 --output-dir brick/pubmed.parquet
     deps:
-      - ./download/pubmed/pubmed_190101.dtd
-    outs:
-      - download/ftp.ncbi.nlm.nih.gov:
-          cache: false
-  process_pubmed_json:
-    cmd: python3 stages/process.py
-    deps:
-      - stages/process.py
-      - download/ftp.ncbi.nlm.nih.gov
+      - stages_v2/download_and_process_baseline.py
     outs:
       - brick/pubmed.parquet

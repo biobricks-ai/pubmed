@@ -1,40 +1,16 @@
 schema: '2.0'
 stages:
-  download_dtd:
-    cmd: wget -P ./download/pubmed http://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd
-    outs:
-    - path: ./download/pubmed/pubmed_190101.dtd
-      hash: md5
-      md5: 2eba5b48c24b0417620a139371a00550
-      size: 14576
-  download_pubmed:
-    cmd: wget -r -m -P ./download ftp://ftp.ncbi.nlm.nih.gov/pubmed
+  build_brick:
+    cmd: python3 stages_v2/download_and_process_baseline.py --workers 4 --output-dir
+      brick/pubmed.parquet
     deps:
-    - path: ./download/pubmed/pubmed_190101.dtd
+    - path: stages_v2/download_and_process_baseline.py
       hash: md5
-      md5: 2eba5b48c24b0417620a139371a00550
-      size: 14576
-    outs:
-    - path: download/ftp.ncbi.nlm.nih.gov
-      hash: md5
-      md5: 9f32a29702c0d1bf13441a8b386e0e5b.dir
-      size: 59581893549
-      nfiles: 3584
-  process_pubmed_json:
-    cmd: python3 stages/process.py
-    deps:
-    - path: download/ftp.ncbi.nlm.nih.gov
-      hash: md5
-      md5: 9f32a29702c0d1bf13441a8b386e0e5b.dir
-      size: 59581893549
-      nfiles: 3584
-    - path: stages/process.py
-      hash: md5
-      md5: f0a7bacac2e606810486dbfd45431302
-      size: 1213
+      md5: 5f173d153bc1e91668000d688aa2e15e
+      size: 12639
     outs:
     - path: brick/pubmed.parquet
       hash: md5
-      md5: cadf3f2279522fd7296a3ad37519b8f3.dir
-      size: 66259075095
-      nfiles: 1166
+      md5: a21cf6da3abe713cf421da20d893ba6a.dir
+      size: 57883044403
+      nfiles: 24964
