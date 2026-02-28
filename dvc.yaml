@@ -5,3 +5,12 @@ stages:
       - stages_v2/download_and_process_baseline.py
     outs:
       - brick/pubmed.parquet
+
+  bigquery:
+    cmd: python3 stages_v2/03_bigquery.py
+    deps:
+      - stages_v2/03_bigquery.py
+      - brick/pubmed.parquet
+    outs:
+      - path: brick/bigquery_manifest.json
+        cache: false
