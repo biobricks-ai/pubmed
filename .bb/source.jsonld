@@ -1,0 +1,53 @@
+{
+  "@context": "../../context/source.context.jsonld",
+  "@type": "dcat:Dataset",
+  "@id": "https://biobricks.ai/bricks/pubmed",
+  "dcterms:title": "PubMed / MEDLINE citation baseline (NCBI/NLM)",
+  "dcterms:description": "A BioBricks brick named 'pubmed' built from the NCBI/NLM PubMed annual baseline XML files (pubmed25, ~38.2M records) downloaded from the NCBI FTP server, parsed into a partitioned Parquet dataset with extracted columns (PMID, Title, Abstract, DOI, Year, Authors, Journal, MeSH_Terms, Keywords, Pub_Types, dates, and the full JSON record). The upstream source is PubMed, produced by the US National Library of Medicine (NLM) at NIH. PubMed citation metadata is a US government work, but individual abstract texts are frequently authored/owned by third-party publishers and carry their own copyright.",
+  "dcterms:license": {
+    "@id": "https://www.nlm.nih.gov/databases/download/terms_and_conditions.html",
+    "dcterms:title": "NLM Terms and Conditions - PubMed/MEDLINE (citations public domain; abstracts may carry third-party copyright)"
+  },
+  "dcterms:creator": "US National Library of Medicine (NLM), National Institutes of Health",
+  "dcterms:publisher": "NCBI / National Library of Medicine / NIH",
+  "dcterms:identifier": "https://pubmed.ncbi.nlm.nih.gov/",
+  "biobricks:licenseName": "NLM Terms and Conditions (custom; US Government metadata + third-party-copyright abstracts)",
+  "biobricks:licenseClass": "unknown",
+  "biobricks:merckCommercialUse": "prohibited",
+  "biobricks:licenseEvidence": [
+    {
+      "source": "stages_v2/download_and_process_baseline.py and README.md",
+      "quote": "BASELINE_URL = \"https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/\" ... Source: NCBI PubMed: https://pubmed.ncbi.nlm.nih.gov/ ; Baseline FTP: https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/",
+      "confidence": "high"
+    },
+    {
+      "source": "https://www.ncbi.nlm.nih.gov/home/about/policies/",
+      "quote": "The site contains copyrighted materials from external sources including PubMed Central, Bookshelf, OMIM, and PubChem ... material contributed or licensed by individuals, companies, or organizations that may be protected by U.S. and foreign copyright laws.",
+      "confidence": "medium"
+    }
+  ],
+  "biobricks:reviewed": false,
+  "biobricks:reviewNotes": "Determined by the annotation agent (Claude, slice items[1350:1356]). The brick downloads the NCBI/NLM PubMed baseline (confirmed by stages_v2 and README). PubMed *citation metadata* (PMIDs, titles, MeSH, journal, dates) is a US government work and effectively public domain, BUT the brick materially includes the full Abstract text of each article, and NLM/NCBI state that abstracts and other content may be protected by third-party (publisher/author) copyright. Under the 'most restrictive component governs' rule, the presence of copyrighted abstract text means the dataset-as-a-whole is restricted / license-required (Schedule A Lr); it is classed 'unknown' here rather than 'restricted' only because NLM's custom Terms and Conditions are not a standard license IRI the validator recognizes, and the precise combined redistribution terms are genuinely undetermined. Commercial redistribution is conservatively marked prohibited because no blanket right to redistribute the copyrighted abstracts is granted. HUMAN REVIEW REQUIRED: NLM's PubMed/MEDLINE download Terms and Conditions permit broad reuse (including commercial) of the *metadata* with attribution and no-endorsement conditions; if the abstract column were excluded or its third-party status accepted, a reviewer could downgrade this to attribution/conditional. Verify the exact NLM Terms and Conditions text at https://www.nlm.nih.gov/databases/download/terms_and_conditions.html.",
+  "prov:wasDerivedFrom": [
+    {
+      "@type": "dcat:Dataset",
+      "@id": "https://pubmed.ncbi.nlm.nih.gov/",
+      "dcterms:title": "PubMed annual baseline (MEDLINE citations), NCBI/NLM",
+      "dcterms:license": {
+        "@id": "https://www.nlm.nih.gov/databases/download/terms_and_conditions.html",
+        "dcterms:title": "NLM Terms and Conditions (metadata public domain; abstracts may be third-party copyrighted)"
+      },
+      "dcat:downloadURL": "https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/",
+      "dcat:landingPage": "https://pubmed.ncbi.nlm.nih.gov/",
+      "dcterms:publisher": "NCBI / National Library of Medicine"
+    }
+  ],
+  "prov:wasGeneratedBy": {
+    "@type": "prov:Activity",
+    "prov:wasAssociatedWith": "BioBricks licensing-provenance annotation agent (Claude, slice items[1350:1356])",
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime",
+      "@value": "2026-08-05T00:00:00Z"
+    }
+  }
+}
